@@ -6,14 +6,14 @@
 // // Função para resolver o problema da mochila para uma única sonda
 // int mochila(SondaMarte *sonda, TCompartimento *comp, int n, int itens_selecionados[]) {
 //     // Criar tabela DP
-//     int dp[n + 1][capacidade + 1];
-//     int count[n + 1][capacidade + 1]; // Para desempate baseado no número de itens
+//     int M[n + 1][capacidade + 1];
+//     int cont[n + 1][capacidade + 1]; // Para desempate baseado no número de itens
 
 //     // Inicializar tabelas
 //     for (int i = 0; i <= n; i++) {
 //         for (int j = 0; j <= capacidade; j++) {
-//             dp[i][j] = 0;
-//             count[i][j] = 0;
+//             M[i][j] = 0;
+//             cont[i][j] = 0;
 //         }
 //     }
 
@@ -22,22 +22,22 @@
 //         for (int j = 0; j <= capacidade; j++) {
 //             if (rochas[i - 1].usado || rochas[i - 1].peso > j) {
 //                 // Não usar a rocha (incompatível ou já usada)
-//                 dp[i][j] = dp[i - 1][j];
-//                 count[i][j] = count[i - 1][j];
+//                 M[i][j] = M[i - 1][j];
+//                 cont[i][j] = cont[i - 1][j];
 //             } else {
 //                 // Tentar incluir a rocha
-//                 int valor_incluindo = rochas[i - 1].valor + dp[i - 1][j - rochas[i - 1].peso];
-//                 int itens_incluindo = 1 + count[i - 1][j - rochas[i - 1].peso];
+//                 int valor_incluindo = rochas[i - 1].valor + M[i - 1][j - rochas[i - 1].peso];
+//                 int itens_incluindo = 1 + cont[i - 1][j - rochas[i - 1].peso];
 
-//                 if (valor_incluindo > dp[i - 1][j] ||
-//                     (valor_incluindo == dp[i - 1][j] && itens_incluindo > count[i - 1][j])) {
+//                 if (valor_incluindo > M[i - 1][j] ||
+//                     (valor_incluindo == M[i - 1][j] && itens_incluindo > cont[i - 1][j])) {
 //                     // Incluir a rocha
-//                     dp[i][j] = valor_incluindo;
-//                     count[i][j] = itens_incluindo;
+//                     M[i][j] = valor_incluindo;
+//                     cont[i][j] = itens_incluindo;
 //                 } else {
 //                     // Não incluir a rocha
-//                     dp[i][j] = dp[i - 1][j];
-//                     count[i][j] = count[i - 1][j];
+//                     M[i][j] = M[i - 1][j];
+//                     cont[i][j] = cont[i - 1][j];
 //                 }
 //             }
 //         }
@@ -46,14 +46,14 @@
 //     // Rastrear itens selecionados
 //     int capacidade_restante = capacidade;
 //     for (int i = n; i > 0 && capacidade_restante > 0; i--) {
-//         if (dp[i][capacidade_restante] != dp[i - 1][capacidade_restante]) {
+//         if (M[i][capacidade_restante] != M[i - 1][capacidade_restante]) {
 //             itens_selecionados[i - 1] = 1; // A rocha foi selecionada
 //             capacidade_restante -= rochas[i - 1].peso;
 //             rochas[i - 1].usado = 1; // Marcar como usada
 //         }
 //     }
 
-//     return dp[n][capacidade];
+//     return M[n][capacidade];
 // }
 
 // int main() {

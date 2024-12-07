@@ -3,12 +3,13 @@
 
 #include "Rocha.h"
 
+typedef RochaIndv TRocha;
 typedef struct CelulaC* ApontadorC;
 
 typedef struct CelulaC
 {
-    RochaIndv *ItemR;
-    ApontadorC pProx;
+    TRocha ItemR;
+    struct CelulaC* pProx;
 } CelulaComp;
 
 typedef struct 
@@ -18,7 +19,7 @@ typedef struct
 } TCompartimento;
 
 void FLVazia_Comp(TCompartimento* comp);
-int LInsere_Comp(TCompartimento* comp, RochaIndv rocha);
+void LInsere_Comp(TCompartimento* comp, RochaIndv rocha);
 void LImprime_Comp(TCompartimento comp);
 int LEhVazia_Comp(TCompartimento* comp);
 
